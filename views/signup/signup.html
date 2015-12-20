@@ -1,0 +1,24 @@
+<h2>User Sign Up</h2>
+
+
+<form ng-submit="savestu();">
+
+    <label>User Id</label>
+
+    <input ng-model="user.id" type="text" required><br/>
+
+    <label>Password</label>
+
+    <input ng-model="user.password" type="password" required><br/>
+
+    <label>Re-Type Password</label>
+
+    <input pattern="{{user.password}}" title="both feilds of password must match" ng-model="user.repassword"
+           type="password" required>
+    <!--{{ok = (user.pasword != user.repassword)}}-->
+
+    <br>
+    <md-button type="submit" class="md-button md-raised md-primary">Save</md-button>
+</form>
+
+

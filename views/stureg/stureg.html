@@ -1,0 +1,50 @@
+<h2>Student`s Registration Form</h2>
+
+
+<form ng-show="saveFrm" ng-submit="savestu();">
+    <label>Student Id</label>
+    <input ng-model="student.stu_id" type="text" required><br/>
+    <label>Student Name</label>
+    <input ng-model="student.stu_name" type="text" required><br/>
+    <label>Age</label>
+    <input ng-model="student.stu_age" type="number" required>
+
+    <br>
+    <md-button type="submit" class="md-button md-raised md-primary">Save</md-button>
+</form>
+
+<form ng-show="updateFrm" ng-submit="updatestu(student._id);">
+    <div>
+        <label>Student Id</label></div>
+    <input ng-model="student.stu_id" type="text" required><br/>
+    <label>Student Name</label>
+    <input ng-model="student.stu_name" type="text" required><br/>
+    <label>Age</label>
+    <input ng-model="student.stu_age" type="number" required>
+
+    </div>
+    <br>
+    <md-button type="submit" class="md-button md-raised md-primary">Update</md-button>
+</form>
+
+<table style="border: 1px solid black" width="200px ">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>age</th>
+    </tr>
+    <tr ng-repeat="data in list">
+
+        <td>{{data.stu_Id}}</td>
+        <td>{{data.stu_Name}}</td>
+        <td>{{data.Age}}</td>
+        <td>
+            <button ng-click="geteditstu(data)">Edit</button>
+
+        </td>
+        <td>
+            <button ng-click="deletestu(data._id)">Delete</button>
+        </td>
+
+    </tr>
+</table>
