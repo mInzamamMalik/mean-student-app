@@ -29,6 +29,11 @@ var userchema = new mongoose.Schema({
     user_Password: { type: String, require: true },
     CreatedOn: { type: Date, default: Date.now() }
 });
+userchema.methods.checkPassword = function (guess, done) {
+    bcrypt.compare(guess, this.password, function (err, isMatch) {
+        done(err, isMatch);
+    });
+};
 var StuRegModel = mongoose.model("sturegistration", stuchema);
 var userRegModel = mongoose.model("userInfo", userchema);
 app.post("/", function (req, res) {
@@ -135,16 +140,37 @@ app.post("/usersave", function (req, res) {
 /////////////////////////
 app.post("/signin", function (req, res) {
     //console.log(req.body.user);
-    var query = { user_Password: req.body.user.password };
-    userRegModel.find({ user_Password: req.body.user.password, user_Id: req.body.user.userid }, { user_Password: 1, user_Id: 1, _id: 0 }, function (err, success) {
-        console.log(success[0]);
+    //let query = { user_Password: req.body.user.password };
+    var query = { user_Id: req.body.user.userid };
+    //  userRegModel.find({ user_Password: req.body.user.password, user_Id: req.body.user.userid }, { user_Password: 1, user_Id: 1, _id: 0 }, (err, success) => {
+    userRegModel.find(query, { user_Password: 1, user_Id: 1, _id: 0 }, function (err, success) {
         if (err) {
-            console.log("Un-Authorise");
-            res.send(err);
+            console.log(err);
+            return;
         }
-        else {
-            console.log("Authorise");
-            res.send(success);
+        if (success) {
+            console.log("console user id", success);
+            if (success.length == 0) {
+                console.log("user not found");
+                return;
+            }
+            bcrypt.compare(req.body.user.password, success[0].user_Password, function (err, isMatch) {
+                if (err) {
+                    res.json({ res: "error",
+                        logedIn: false
+                    });
+                }
+                if (!isMatch) {
+                    console.log("invalid password");
+                    res.json({ res: "invalid password",
+                        logedIn: false });
+                }
+                if (isMatch) {
+                    console.log("password is ok");
+                    res.json({ res: "LogedIn as " + req.body.user.userid + "",
+                        logedIn: true });
+                }
+            });
         }
     });
 });
