@@ -139,8 +139,6 @@ app.post("/usersave", function (req, res) {
 });
 /////////////////////////
 app.post("/signin", function (req, res) {
-    //console.log(req.body.user);
-    //let query = { user_Password: req.body.user.password };
     var query = { user_Id: req.body.user.userid };
     //  userRegModel.find({ user_Password: req.body.user.password, user_Id: req.body.user.userid }, { user_Password: 1, user_Id: 1, _id: 0 }, (err, success) => {
     userRegModel.find(query, { user_Password: 1, user_Id: 1, _id: 0 }, function (err, success) {
@@ -149,26 +147,34 @@ app.post("/signin", function (req, res) {
             return;
         }
         if (success) {
-            console.log("console user id", success);
             if (success.length == 0) {
                 console.log("user not found");
+                res.json({
+                    res: "user not found",
+                    logedIn: false
+                });
                 return;
             }
             bcrypt.compare(req.body.user.password, success[0].user_Password, function (err, isMatch) {
                 if (err) {
-                    res.json({ res: "error",
+                    res.json({
+                        res: "error",
                         logedIn: false
                     });
                 }
                 if (!isMatch) {
                     console.log("invalid password");
-                    res.json({ res: "invalid password",
-                        logedIn: false });
+                    res.json({
+                        res: "invalid password",
+                        logedIn: false
+                    });
                 }
                 if (isMatch) {
                     console.log("password is ok");
-                    res.json({ res: "LogedIn as " + req.body.user.userid + "",
-                        logedIn: true });
+                    res.json({
+                        res: "LogedIn as " + req.body.user.userid + "",
+                        logedIn: true
+                    });
                 }
             });
         }

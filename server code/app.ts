@@ -208,6 +208,11 @@ app.post("/signin", (req, res) => {
                 if(success.length == 0){
                     
                     console.log("user not found");
+                    res.json({
+                        res: "user not found",
+                        logedIn: false
+                    });
+                        
                     return;
                 }
 

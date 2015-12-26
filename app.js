@@ -24,4 +24,16 @@ angular.module("myApp", ["ngMaterial", "ui.router"])
                 controller: "signinController"
             })
 
+            .state("/welcome", {
+                url: "/welcome",
+                templateUrl: "views/welcome/welcome.html"
+
+            })
+
+            .state("dashboard", {
+                url: "/dashboard",
+                templateUrl: "views/dashboard/dashboard.html",
+                controller: "dashboardController"
+
+            })
     });

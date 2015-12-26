@@ -3,7 +3,7 @@
  */
 angular.module("myApp")
 
-    .controller("signinController", function ($scope, $http) {
+    .controller("signinController", function ($scope, $http, $state) {
 
         $scope.signin = function () {
 
@@ -15,9 +15,14 @@ angular.module("myApp")
 
 
                 $scope.user = {};
-                console.log(res);
+                console.log(res.data.logedIn);
+                if (res.data.logedIn) {
+                    $state.go("dashboard");
 
+                } else {
 
+                    $scope.msg = "Invalid User Id or Password";
+                }
 
             }, function (err) {
                 console.log(err);
