@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<h2>User Sign-In</h2>
 
-</body>
-</html>
+
+<form ng-submit="signin();">
+
+    <label>User Id</label>
+
+    <input ng-model="user.userid" type="text" required><br/>
+
+    <label>Password</label>
+
+    <input ng-model="user.password" type="password" required><br/>
+
+
+
+    <br>
+    <md-button type="submit" class="md-button md-raised md-primary">Sign-In</md-button>
+</form>
+
+

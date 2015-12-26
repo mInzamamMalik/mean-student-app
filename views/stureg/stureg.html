@@ -27,6 +27,15 @@
     <md-button type="submit" class="md-button md-raised md-primary">Update</md-button>
 </form>
 
+<form id="uploadForm"
+      enctype="multipart/form-data"
+      action="/api/photo"
+      method="post">
+    <input type="file" name="userPhoto" />
+    <input type="submit" value="Upload Image" name="submit">
+    <span id = "status"></span>
+</form>
+
 <table style="border: 1px solid black" width="200px ">
     <tr>
         <th>id</th>

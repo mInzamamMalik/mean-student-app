@@ -18,6 +18,10 @@ angular.module("myApp", ["ngMaterial", "ui.router"])
                 templateUrl: "views/signup/signup.html",
                 controller: "signupController"
             })
-
+            .state("/signin", {
+                url: "/signin",
+                templateUrl: "views/signin/signin.html",
+                controller: "signinController"
+            })
 
     });
